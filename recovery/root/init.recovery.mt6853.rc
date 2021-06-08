@@ -5,7 +5,6 @@ on early-init
 
 on fs
     install_keyring
-    mkdir /mnt/vendor/persist 0777 system system
     setprop crypto.ready 1
     write /sys/class/power_supply/usb/otg_switch 1
 
@@ -32,31 +31,6 @@ service keystore /sbin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
-service mobicore /sbin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
-	-r /vendor/app/mcRegistry/06090000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/020f0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/05120000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/020b0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/05070000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/030b0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/03100000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/030c0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/40188311faf343488db888ad39496f9a.drbin \
-	-r /vendor/app/mcRegistry/070c0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/090b0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/0f5eed3c3b5a47afacca69a84bf0efad.drbin \
-	-r /vendor/app/mcRegistry/07060000000000000000000000007169.drbin \
-	-r /vendor/app/mcRegistry/07407000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/9073f03a9618383bb1856eb3f990babd.drbin \
-	-r /vendor/app/mcRegistry/05060000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/05070000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/030f0000000000000000000000000000.drbin \
-	-r /vendor/app/mcRegistry/09070000000000000000000000000000.drbin
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
-
 #Add for OPPO FBE
 service hal_cryptoeng_oppo /sbin/vendor.oppo.hardware.cryptoeng@1.0-service
     user root
@@ -78,7 +52,6 @@ service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
 
 on property:hwservicemanager.ready=true
     start hal_cryptoeng_oppo
-    start mobicore
     start keymaster-4-0
     start gatekeeper-1-0
 
@@ -110,22 +83,3 @@ on property:sys.usb.config=fastboot
     start servicemanager
     start hwservicemanager
     restart fastbootd
-
-on post-fs
-    # Support A/B feature for EMMC and UFS boot region
-    symlink /dev/block/sda /dev/block/mmcblk0boot0
-    symlink /dev/block/sdb /dev/block/mmcblk0boot1
-    symlink /dev/block/mmcblk0boot0 /dev/block/platform/bootdevice/by-name/preloader_a
-    symlink /dev/block/mmcblk0boot1 /dev/block/platform/bootdevice/by-name/preloader_b
-
-    # Support A/B feature for combo emmc and ufs OTA update
-    symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/platform/bootdevice/by-name/preloader_emmc_a
-    symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/platform/bootdevice/by-name/preloader_emmc_b
-    symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/platform/bootdevice/by-name/preloader_ufs_a
-    symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/platform/bootdevice/by-name/preloader_ufs_b
-
-    # Support A/B feature for combo emmc and ufs OTA update
-    symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/by-name/preloader_emmc_a
-    symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/by-name/preloader_emmc_b
-    symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/by-name/preloader_ufs_a
-    symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/by-name/preloader_ufs_b
