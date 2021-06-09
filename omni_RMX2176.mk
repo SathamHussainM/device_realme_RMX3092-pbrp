@@ -17,7 +17,7 @@
 #
 
 # Release name
-PRODUCT_RELEASE_NAME := RMX2121
+PRODUCT_RELEASE_NAME := RMX2176
 
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -29,10 +29,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)
 
-PRODUCT_DEVICE := RMX2121
-PRODUCT_NAME := omni_RMX2121
+PRODUCT_DEVICE := RMX2176
+PRODUCT_NAME := omni_RMX2176
 PRODUCT_BRAND := Realme
-PRODUCT_MODEL := Realme X7 Pro
+PRODUCT_MODEL := Realme X7/Narzo 30 Pro
 PRODUCT_MANUFACTURER := Realme
 
 # HACK: Set vendor patch level and enable Treble
