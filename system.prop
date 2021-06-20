@@ -6,7 +6,7 @@ ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
 ro.boot.avb_version=1.1
 ro.boot.vbmeta.avb_version=1.1
-ro.vendor.mediatek.platform=MT6998
-ro.hardware=mt6889
+ro.vendor.mediatek.platform=MT6853
+ro.hardware=mt6853
 ro.boot.dynamic_partitions=true
 
