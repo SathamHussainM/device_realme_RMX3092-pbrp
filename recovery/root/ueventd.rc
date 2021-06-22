@@ -27,6 +27,11 @@
 /dev/block/platform/bootdevice/by-name/md1dsp    0660    root    system
 /dev/block/platform/bootdevice/by-name/boot_para 0640    root    system
 
+# ifdef VENDOR_EDIT
+#Jianqing.Liao@PSW.MM.AudioDriver, 2020/01/19, Add for SIXTH
+/dev/sia81xx_tuning_if    0666   system     audio
+#enif
+
 # OTP
 /dev/otp                  0660   system     system
 /dev/block/platform/bootdevice/by-name/otp       0660    root    system
@@ -46,6 +51,7 @@
 /dev/gpsdl1               0660   gps        gps
 /dev/stpgps               0660   gps        gps
 /dev/gps                  0660   gps        system
+/dev/fw_log_gps           0660   gps        gps
 /dev/gps_emi              0660   gps        gps
 
 # ANT
@@ -62,6 +68,7 @@
 /dev/msr3110              0666   root       root
 /dev/mt6605               0660   nfc        radio
 /dev/st21nfc              0660   nfc        radio
+/dev/st54spi              0660   secure_element        secure_element
 
 # MTK BTIF driver
 /dev/btif                 0600   system     system
@@ -125,7 +132,6 @@
 /dev/pvrsrvkm             0666   root       root
 /dev/pvr_sync             0666   root       root
 
-
 /sys/devices/platform/leds-mt65xx/leds/green   delay_on      0664  system   system
 /sys/devices/platform/leds-mt65xx/leds/green   delay_off      0664  system   system
 /sys/devices/platform/leds-mt65xx/leds/red   delay_on      0664  system   system
@@ -152,11 +158,11 @@
 #touch
 /dev/touch                0660   root       system
 /dev/hotknot              0660   root       system
+/dev/tll                  0660   root       system
 
 #hang_detect
 /dev/RT_Monitor           0660   system     system
-/dev/kick_powerkey        0660   system     system
+/dev/kick_powerkey        0600   system     system
 
 #MTK In-House TEE
 /dev/ttyACM0              0660   radio      radio
-
