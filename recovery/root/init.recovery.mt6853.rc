@@ -50,6 +50,9 @@ service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
     disabled
     seclabel u:r:recovery:s0
 
+on property:vendor.sys.listeners.registered=true && ro.vendor.mtk_trustonic_tee_support=1
+    start keymaster-4-0
+
 on property:hwservicemanager.ready=true
     start hal_cryptoeng_oppo
     start mobicore
